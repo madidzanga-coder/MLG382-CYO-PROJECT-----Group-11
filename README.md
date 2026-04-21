@@ -9,6 +9,19 @@ Machine Learning
 
 This project applies machine learning techniques to a healthcare dataset to **predict stroke risk** and **segment patients into clusters**. The work follows the **CRISP-DM (Cross-Industry Standard Process for Data Mining)** framework to ensure a structured, reproducible, and business-aligned approach.
 
+Stroke is the second leading cause of death globally. This project builds a two-layer risk assessment system:
+ 
+1. **Stroke Risk Classifier** – A Logistic Regression model predicts the probability of stroke from patient clinical and demographic features. Selected for its superior recall (0.82) on the imbalanced dataset.
+2. **Health Risk Clusterer** – A K-Means model (k=4) segments patients into interpretable risk tiers (LOW / MODERATE / MODERATE-HIGH / HIGH) with tailored health recommendations.
+   
+The models are integrated into an interactive Dash web application where users enter a patient profile and receive instant predictions.
+
+
+An end-to-end machine learning application that predicts individual stroke risk and segments patients into health risk tiers using classification and clustering models, deployed as an interactive Dash web application.
+ 
+**Live App:** [Dash app](https://mlg382-cyo-project-group-11.onrender.com)
+**Dataset:** [Kaggle – Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)
+
 ---
 
 ## 🧭 CRISP-DM Framework
@@ -92,8 +105,6 @@ Used to predict stroke occurrence:
 
 📁 Notebook: `notebooks/classification_modelling.ipynb`
 
----
-
 #### 🔹 Clustering Model
 
 Used for patient segmentation:
@@ -105,6 +116,39 @@ Used for patient segmentation:
 * `model_km.pkl`
 
 📁 Notebook: `notebooks/cluster_modelling.ipynb`
+
+---
+## More detail
+### Classification (Stroke Prediction)
+ 
+Three models were trained and evaluated on a held-out 20% test set. Due to severe class imbalance (~4.9% positive cases), **recall** was the primary selection metric.
+ 
+| Model | Test Accuracy | Recall | F1 | Train-Test Gap | Selected |
+|---|---|---|---|---|---|
+| **Logistic Regression** | 72.6% | **0.816** | 0.228 | 0.057 | ✅ Yes |
+| K-Nearest Neighbours | 87.7% | 0.132 | 0.096 | 0.123 | ❌ No |
+| XGBoost | 94.0% | 0.158 | 0.207 | 0.060 | ❌ No |
+ 
+Logistic Regression was selected for deployment because it correctly identifies 82% of actual stroke cases — the metric that matters most in a medical screening context.
+ 
+### Clustering (Health Risk Tiers)
+ 
+K-Means (k=4) was trained using the elbow method and silhouette analysis. Clusters are mapped to:
+ 
+| Cluster | Risk Level | Priority |
+|---|---|---|
+| 0 | MODERATE-HIGH 🟠 | 2 |
+| 1 | MODERATE 🟡 | 3 |
+| 2 | LOW 🟢 | 4 |
+| 3 | HIGH 🔴 | 1 |
+ 
+### Top Predictive Features
+ 
+1. **Age** – Strongest predictor (LR coef: 1.89, XGB importance: 0.240)
+2. **Hypertension** – Direct comorbidity
+3. **Heart Disease** – Known stroke risk factor
+4. **Average Glucose Level** – Hyperglycemia indicator
+5. **BMI** – Obesity-related risk
 
 ---
 
@@ -136,9 +180,9 @@ A simple web application is provided to demonstrate model predictions.
 
 **Features:**
 
-* Input patient data
-* Predict stroke risk
-* Display results interactively
+- **Patient Input Panel** – 7 input controls: gender, age (slider), average glucose, BMI, health conditions (checklist), work type, and smoking status.
+- **Stroke Risk Analysis** – Predicted risk category (LOW / MODERATE / HIGH) with probability percentage and identified risk factors.
+- **Health Risk Assessment** – Cluster-based risk tier with colour-coded severity and personalised health recommendations.
 
 ---
 
@@ -204,16 +248,6 @@ python src/web_app.py
 * Data preprocessing significantly improves model performance.
 * Clustering reveals distinct patient groups for targeted intervention.
 
----
-
-## 📊 Future Improvements
-
-* Address class imbalance using SMOTE or similar techniques
-* Hyperparameter tuning for improved accuracy
-* Deploy using cloud platforms (e.g., AWS, Azure)
-* Build a more advanced frontend interface
-
----
 
 ---
 
@@ -225,4 +259,6 @@ This project is for academic purposes.
 
 ## 🧾 Executive Summary
 
-This project demonstrates a complete machine learning pipeline using the CRISP-DM framework to predict stroke risk and segment patients. Through careful data preparation and model selection, we developed reliable predictive models and actionable insights. The inclusion of a web application highlights the project's practical applicability in healthcare environments, supporting early diagnosis and improved patient outcomes.
+This project demonstrates a complete machine learning pipeline using the CRISP-DM framework to predict stroke risk and segment patients.
+Through careful data preparation and model selection, we developed reliable predictive models and actionable insights. 
+The inclusion of a web application highlights the project's practical applicability in healthcare environments, supporting early diagnosis and improved patient outcomes.
