@@ -1,6 +1,7 @@
 # 🧠 Stroke Prediction & Patient Segmentation Project
 
 **CRISP-DM Based Data science Workflow**
+
 Machine Learning
 
 ---
@@ -20,6 +21,7 @@ The models are integrated into an interactive Dash web application where users e
 An end-to-end machine learning application that predicts individual stroke risk and segments patients into health risk tiers using classification and clustering models, deployed as an interactive Dash web application.
  
 **Live App:** [Dash app](https://mlg382-cyo-project-group-11.onrender.com)
+
 **Dataset:** [Kaggle – Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)
 
 ---
