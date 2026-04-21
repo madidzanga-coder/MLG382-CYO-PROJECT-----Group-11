@@ -192,8 +192,8 @@ def run_prediction(n, gender, age, conditions, work_type, glucose, bmi, smoking)
     if age > 55: factors.append(f"Age (>55)")
     if 'hypertension' in (conditions or []): factors.append("Hypertension")
     if 'heart_disease' in (conditions or []): factors.append("Heart Disease") # Explicit check
-    if glucose > 140: factors.append("Hyperglycemia")
-    if bmi > 25: factors.append("Overweight/Obese")
+    if glucose > 170: factors.append("Hyperglycemia")
+    if bmi > 30: factors.append("Overweight/Obese")
     if smoking == 'smokes': factors.append("Active Smoker")
     
     factors_display = html.Ul([html.Li(f) for f in factors]) if factors else html.Em("...")
