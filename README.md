@@ -96,7 +96,6 @@ Used to predict stroke occurrence:
 
 * Logistic Regression
 * K-Nearest Neighbors (KNN)
-* Random Forest
 * XGBoost
 
 **Saved Models:**
